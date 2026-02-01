@@ -2,11 +2,15 @@
   "name": "node.js.project",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
     "start:prod": "cross-env NODE_ENV=production node server.js",
+    "build": "npm run build.js",
     "import:data": "node dev-data/data/import-dev-data.js --import",
     "delete:data": "node dev-data/data/import-dev-data.js --delete",
     "debug": "ndb server.js",
