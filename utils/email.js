@@ -14,7 +14,7 @@ module.exports = class Email {
   createTransport() {
     if (process.env.NODE_ENV === 'production') {
       // Sendgrid
-      console.log('Using SendGrid Transport');
+      ('Using SendGrid Transport');
       return nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
@@ -25,11 +25,7 @@ module.exports = class Email {
     }
 
     // Debugging: Check if env vars are loaded
-    console.log('Using Dev Transport (Mailtrap)');
-    console.log('EMAIL_HOST:', process.env.EMAIL_HOST);
-    console.log('EMAIL_PORT:', process.env.EMAIL_PORT);
-    console.log('EMAIL_USERNAME:', process.env.EMAIL_USERNAME);
-    // console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD);
+    // ('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD);
 
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

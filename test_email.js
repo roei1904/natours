@@ -14,7 +14,7 @@ async function sendTestEmailClass() {
 
   try {
     await new Email(user, url).sendPasswordReset();
-    console.log('Class-based email sent successfully!');
+    ('Class-based email sent successfully!');
   } catch (error) {
     console.error('Error in Email class:');
     console.error(error);

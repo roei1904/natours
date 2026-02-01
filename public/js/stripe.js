@@ -1,5 +1,7 @@
 import axios from 'axios';
-const stripe = Stripe('pk_test_51SvxV02aKpRAp2ToBD6ZtBvP98OEiYTHXQg5oNBQOzkhSAD2YiQ77tACjDjLT1ORHu60nWZxYfLgUaNXH9JKMaAH00kjj7IpmW');
+const stripe = Stripe(
+  'pk_test_51SvxV02aKpRAp2ToBD6ZtBvP98OEiYTHXQg5oNBQOzkhSAD2YiQ77tACjDjLT1ORHu60nWZxYfLgUaNXH9JKMaAH00kjj7IpmW',
+);
 
 export const bookTour = async (tourId) => {
   try {
@@ -11,7 +13,7 @@ export const bookTour = async (tourId) => {
       sessionId: sessionData.session.id,
     });
   } catch (err) {
-    console.log(err);
+    err;
     alert('Error booking the tour. Please try again.');
   }
 };

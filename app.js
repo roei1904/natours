@@ -14,6 +14,7 @@ const xss = require('xss-clean');
 const viewRoutes = require('./routes/viewRoutes');
 const cookieParser = require('cookie-parser');
 const bookingRouter = require('./routes/bookingRoutes');
+const compression = require('compression');
 
 const app = express();
 
@@ -93,6 +94,8 @@ app.use(
     ],
   }),
 );
+
+app.use(compression());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();

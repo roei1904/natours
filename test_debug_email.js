@@ -6,9 +6,9 @@ const path = require('path');
 dotenv.config({ path: './config.env' });
 
 async function runDebug() {
-  console.log('--- START DEBUG ---');
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-  console.log('EMAIL_HOST:', process.env.EMAIL_HOST);
+  ('--- START DEBUG ---');
+  ('NODE_ENV:', process.env.NODE_ENV);
+  ('EMAIL_HOST:', process.env.EMAIL_HOST);
 
   const user = {
     email: 'jennifer@example.com',
@@ -18,12 +18,12 @@ async function runDebug() {
 
   try {
     const emailObj = new Email(user, url);
-    console.log('Email object created.');
-    console.log('Templates path:', path.join(__dirname, 'views', 'emails'));
+    ('Email object created.');
+    ('Templates path:', path.join(__dirname, 'views', 'emails'));
 
-    console.log('Attempting to sendPasswordReset...');
+    ('Attempting to sendPasswordReset...');
     await emailObj.sendPasswordReset();
-    console.log('--- SUCCESS ---');
+    ('--- SUCCESS ---');
   } catch (err) {
     console.error('--- FAILURE ---');
     console.error('Error Name:', err.name);
