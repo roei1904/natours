@@ -3,7 +3,7 @@ import { showAlert } from './alerts';
 
 const form = document.querySelector('.form--login');
 
-const login = async (email, password) => {
+export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -38,14 +38,18 @@ if (form) {
 }
 
 export const logout = async () => {
+  console.log('Logging out...');
   try {
     const res = await axios({
       method: 'GET',
       url: '/api/v1/users/logout',
     });
-    if ((res.data.status = 'success')) location.reload(true);
+    if (res.data.status === 'success') {
+      console.log('Logout success, reloading...');
+      location.assign('/');
+    }
   } catch (err) {
-    err.response;
+    console.log('Logout error:', err.response);
     showAlert('error', 'Error logging out! Try again.');
   }
 };

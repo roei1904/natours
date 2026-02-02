@@ -9,6 +9,11 @@ const User = require('../models/user-Model');
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
   const tour = await Tour.findById(req.params.tourId);
+
+  if (!tour) {
+    return next(new appError('No tour found with that ID', 404));
+  }
+
   const session = await Stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',

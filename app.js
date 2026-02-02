@@ -20,7 +20,6 @@ const bookingController = require('./controllers/bookingController');
 
 const app = express();
 
-
 app.enable('trust proxy');
 
 app.set('view engine', 'pug');
@@ -30,7 +29,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(cors());
 
 app.options('*', cors());
-
 
 app.use(
   helmet({
@@ -65,6 +63,7 @@ app.use(
           'https://cdn.jsdelivr.net',
           'https://cdnjs.cloudflare.com',
           'https://checkout.stripe.com',
+          'https://unpkg.com',
         ],
         workerSrc: ["'self'", 'blob:'],
       },
@@ -85,7 +84,11 @@ const limiter = ratelimit({
 });
 app.use('/api', limiter);
 
-app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout,
+);
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
