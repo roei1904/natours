@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser');
 const bookingRouter = require('./routes/bookingRoutes');
 const compression = require('compression');
 const cors = require('cors');
+const bookingController = require('./controllers/bookingController');
 
 const app = express();
 
@@ -84,6 +85,7 @@ const limiter = ratelimit({
 });
 app.use('/api', limiter);
 
+app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
