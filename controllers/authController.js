@@ -12,16 +12,15 @@ const signtToken = (id) => {
   });
 };
 
-const createsendToken = (user, statusCode, res) => {
+const createsendToken = (user, statusCode, req, res) => {
   const token = signtToken(user._id);
-  const cookieOptions = {
+  res.cookie('jwt', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
     httpOnly: true,
-  };
-  if (req.secure || req.headers['x-forwarded-proto'] === 'https') cookieOptions.secure = true;
-  res.cookie('jwt', token, cookieOptions);
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+  });
   user.password = undefined;
 
   res.status(statusCode).json({
@@ -40,7 +39,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
-  createsendToken(newUser, 201, res);
+  createsendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -55,7 +54,7 @@ exports.login = catchAsync(async (req, res, next) => {
   ) {
     return next(new AppError('Incorrect email or password', 401));
   }
-  createsendToken(existingUser, 201, res);
+  createsendToken(existingUser, 201, req, res);
 });
 
 exports.logout = (req, res) => {
@@ -171,7 +170,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
   await user.save();
-  createsendToken(newUser, 201, res);
+  createsendToken(user, 201, req, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
@@ -182,7 +181,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.newPassword;
   user.passwordConfirm = req.body.newPasswordConfirm;
   await user.save();
-  createsendToken(newUser, 201, res);
+  createsendToken(user, 201, req, res);
 });
 
 exports.isLoggedIn = async (req, res, next) => {

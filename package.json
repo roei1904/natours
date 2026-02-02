@@ -57,8 +57,5 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.7.4"
-  },
-  "engines": {
-    "node": ">=10.0.0"
   }
 }

@@ -15,14 +15,21 @@ const viewRoutes = require('./routes/viewRoutes');
 const cookieParser = require('cookie-parser');
 const bookingRouter = require('./routes/bookingRoutes');
 const compression = require('compression');
+const cors = require('cors');
 
 const app = express();
+
 
 app.enable('trust proxy');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // MIDDLEWARES
+
+app.use(cors());
+
+app.options('*', cors());
+
 
 app.use(
   helmet({
