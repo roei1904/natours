@@ -3,8 +3,7 @@
 A robust RESTful API for a tour booking application, built with modern Node.js, Express, and MongoDB.
 
 ## 🚀 Live Demo
-https://natours-8y2v.onrender.com/my-tours
-
+https://natours-8y2v.onrender.com/
 ## 🛠 Tech Stack
 * **Node.js & Express** - Backend framework
 * **MongoDB & Mongoose** - Database and ORM
